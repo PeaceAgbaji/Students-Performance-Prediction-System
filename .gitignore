@@ -1,0 +1,15 @@
+# Python environments and temporary files
+.venv/
+__pycache__/
+
+# Node/Frontend dependencies (Ignored across the entire project)
+/frontend/node_modules/
+/frontend/**/node_modules/
+/frontend/**/build/
+/frontend/**/dist/
+
+# Large ML/Data files that should not be in the public repo
+*.joblib
+*.pkl
+*.zip
+*.csv  
