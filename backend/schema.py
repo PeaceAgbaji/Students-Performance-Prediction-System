@@ -47,3 +47,4 @@ class StudentInput(BaseModel):
     school_reason_reputation: int
     primary_guardian_mother: int
     primary_guardian_other: int
+    

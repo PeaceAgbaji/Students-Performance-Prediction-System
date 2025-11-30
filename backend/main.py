@@ -17,7 +17,7 @@ app = FastAPI(title="Student Performance Prediction API")
 # --- 1. Load Model and Preprocessing Components ---
 # The path must navigate UP one level (..) to find the 'model' folder
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-MODEL_PATH = os.path.join(BASE_DIR, "..", "model", "trained_student_linear_model.joblib")
+MODEL_PATH = os.path.join(BASE_DIR, "model", "trained_student_linear_model.joblib")
 
 try:
     model = joblib.load(MODEL_PATH)
