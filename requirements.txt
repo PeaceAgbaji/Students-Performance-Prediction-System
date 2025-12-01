@@ -1,1 +1,9 @@
--r backend/requirements.txt
+fastapi
+uvicorn
+python-multipart
+joblib
+scikit-learn
+pydantic
+numpy
+pandas
+psycopg2-binary
