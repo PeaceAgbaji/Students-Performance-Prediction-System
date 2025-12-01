@@ -9,7 +9,7 @@ import sys
 # Use relative imports for local files
 from .schema import StudentInput
 from .utils import grade_to_category
-from .database import log_prediction # This is the PostgreSQL function
+#from .database import log_prediction # This is the PostgreSQL function
 
 # Initialize FastAPI
 app = FastAPI(title="Student Performance Prediction API")
@@ -77,22 +77,22 @@ def predict_grade(data: StudentInput):
 
     # --- LOG THE PREDICTION TO POSTGRESQL (Optional) ---
     # Prepare data for logging
-    try:
-        log_data = data.model_dump()
-        log_prediction(
-            data=log_data,
-            prediction_score=float(final_score),
-            category=category
-        )
-    except Exception as e:
-         print(f"Warning: Logging failed. Error: {e}")
-    # ----------------------------------------------------
+    # try:
+    #     log_data = data.model_dump()
+    #     log_prediction(
+    #         data=log_data,
+    #         prediction_score=float(final_score),
+    #         category=category
+    #     )
+    # except Exception as e:
+    #      print(f"Warning: Logging failed. Error: {e}")
+    # # ----------------------------------------------------
 
-    return {
-        "predicted_score": round(float(final_score), 2),
-        "category": category,
-        "detail": f"Predicted Grade: {round(float(final_score), 2)}/20"
-    }
+    # return {
+    #     "predicted_score": round(float(final_score), 2),
+    #     "category": category,
+    #     "detail": f"Predicted Grade: {round(float(final_score), 2)}/20"
+    # }
     
     
     
