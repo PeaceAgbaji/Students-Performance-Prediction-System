@@ -78,7 +78,7 @@ const PredictionForm = () => {
     };
 
     try {
-      const response = await fetch('https://students-performance-prediction-system-production.up.railway.app/', {
+      const response = await fetch('https://students-performance-prediction-system-production.up.railway.app/predict', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
