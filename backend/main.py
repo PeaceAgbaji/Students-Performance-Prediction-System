@@ -9,7 +9,7 @@ import sys
 # Use relative imports for local files
 from .schema import StudentInput
 from .utils import grade_to_category
-# from .database import log_prediction  <-- COMMENTED OUT TO PREVENT CRASHES
+# from .database import log_prediction  
 
 # Initialize FastAPI
 app = FastAPI(title="Student Performance Prediction API")
