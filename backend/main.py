@@ -9,26 +9,30 @@ import sys
 # Use relative imports for local files
 from .schema import StudentInput
 from .utils import grade_to_category
-#from .database import log_prediction # This is the PostgreSQL function
+# from .database import log_prediction  <-- COMMENTED OUT TO PREVENT CRASHES
 
 # Initialize FastAPI
 app = FastAPI(title="Student Performance Prediction API")
 
 # --- 1. Load Model and Preprocessing Components ---
-# The path must navigate UP one level (..) to find the 'model' folder
+# The path navigates to the 'model' folder INSIDE 'backend'
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+# Assumes structure: backend/model/trained_student_linear_model.joblib
 MODEL_PATH = os.path.join(BASE_DIR, "model", "trained_student_linear_model.joblib")
 
 try:
     model = joblib.load(MODEL_PATH)
     print(f"✅ Model loaded successfully from: {MODEL_PATH}")
 except Exception as e:
-    print(f"❌ ERROR: Could not load model. Ensure model is in the '../model/' folder: {e}")
-    sys.exit(1)
+    print(f"❌ ERROR: Could not load model. Check path: {e}")
+    # We don't exit here so the app can at least start and show health check
+    # sys.exit(1) 
 
 
 # --- 2. Configure CORS ---
-origins = ["*"] # Allows your frontend to connect
+# In production, you should ideally change "*" to your Vercel URL
+origins = ["*"] 
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
@@ -75,27 +79,13 @@ def predict_grade(data: StudentInput):
     final_score = np.clip(predicted_score, 0, 20)
     category = grade_to_category(final_score)
 
-    # --- LOG THE PREDICTION TO POSTGRESQL (Optional) ---
-    # Prepare data for logging
-    # try:
-    #     log_data = data.model_dump()
-    #     log_prediction(
-    #         data=log_data,
-    #         prediction_score=float(final_score),
-    #         category=category
-    #     )
-    # except Exception as e:
-    #      print(f"Warning: Logging failed. Error: {e}")
-    # # ----------------------------------------------------
-
-    # return {
-    #     "predicted_score": round(float(final_score), 2),
-    #     "category": category,
-    #     "detail": f"Predicted Grade: {round(float(final_score), 2)}/20"
-    # }
+    # Database logging is removed for stability
     
-    
+    return {
+        "predicted_score": round(float(final_score), 2),
+        "category": category,
+        "detail": f"Predicted Grade: {round(float(final_score), 2)}/20"
+    }
     
     # to run the frontend npm run dev in student performance prediction ml main integrated terminal(npm install)
-    # to run backend in root folder student performance prediction  run py -m uvicorn backend.main:app --reload  
-    
+    # to run backend in root folder student performance prediction  run py -m uvicorn backend.main:app --reload 
