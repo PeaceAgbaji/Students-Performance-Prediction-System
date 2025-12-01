@@ -97,4 +97,5 @@ def predict_grade(data: StudentInput):
     
     
     # to run the frontend npm run dev in student performance prediction ml main integrated terminal(npm install)
-    # to run backend in root folder student performance prediction  run py -m uvicorn backend.main:app --reload     
+    # to run backend in root folder student performance prediction  run py -m uvicorn backend.main:app --reload  
+    

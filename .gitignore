@@ -9,7 +9,6 @@ __pycache__/
 /frontend/**/dist/
 
 # Large ML/Data files that should not be in the public repo
-*.joblib
 *.pkl
 *.zip
 *.csv  
